@@ -7,11 +7,10 @@ function init(){
     usedLetters = new Array();
 
     words = new Array();
-    words.push({word: "Laranja", tip: "Fruta citrica"});
-    words.push({word: "Abacaxi", tip: "Fruta com casta"});
-    words.push({word: "Trabalho", tip: "Onde passamos o maior tempo do dia"});
-    words.push({word: "Escola", tip: "Onde  se aprende coisas"});
-    words.push({word: "Soco", tip: "O que você da nas pessoas"});
+    words.push({word: "LARANJA", tip: "Fruta citrica"});
+    words.push({word: "ABACAXI", tip: "Fruta com casta"});
+    words.push({word: "TRABALHO", tip: "Onde passamos o maior tempo do dia"});
+    words.push({word: "ESCOLA", tip: "Onde  se aprende coisas"});
 
     selectedWord = words[ parseInt( Math.random() * words.length ) ];
 
@@ -28,32 +27,27 @@ function init(){
 }
 
 function check(){
-    let newLetter = document.getElementById("input-letter").value;
+    let newLetter = document.getElementById("input-letter").value.toUpperCase();
 
     usedLetters.push(newLetter);
 
     document.getElementById("used-letters").innerHTML = usedLetters.join(" - ");
 
-    let completed = true;
+    let remaining = 0;
 
     for(let i = 0; i < hangman.length; i ++){
-        if(selectedWord.word[ i ] == newLetter){
+        if( selectedWord.word[ i ] == newLetter ){
             hangman[ i ] = newLetter;
-        }else{
-            completed = false;
+        }
+
+        if( hangman[ i ] == "*" ){
+            remaining ++;
         }
     }
 
-    if( completed ){
+    if( remaining == 0 ){
         alert("Done!");
     }
 
     document.getElementById("hangman").innerHTML = hangman.join(" ");
 }
-
-// TODO gerar palavras dinamicas
-// TODO usar pop/push/clear nas listas
-// TODO desenvolver uma página para o visual
-// TODO exibir letras já escolhidas
-// TODO quando acertar, Substituir _ pela letra
-// TODO lista de letras já utilizadas
